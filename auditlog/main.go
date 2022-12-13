@@ -3,6 +3,7 @@ package main
 import (
 	"auditlog/auditor"
 	"context"
+	"time"
 )
 
 type myRepository struct {
@@ -25,4 +26,11 @@ func main() {
 
 	a.Update(val1)
 	a.Update(val2)
+
+	time.Sleep(time.Second * 5)
+
+	a.Update(val1)
+	a.Update(val2)
+
+	time.Sleep(time.Second * 5)
 }

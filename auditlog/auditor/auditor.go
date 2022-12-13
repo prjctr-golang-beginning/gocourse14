@@ -2,6 +2,8 @@ package auditor
 
 import (
 	"context"
+	"fmt"
+	"log"
 	"sync"
 	"time"
 )
@@ -12,7 +14,7 @@ type Valuable interface {
 
 const (
 	observerId  = `audit_log`
-	flushPeriod = 10 * time.Second
+	flushPeriod = 2 * time.Second
 	flushMax    = 100
 
 	flushTypePeriod = iota
@@ -90,11 +92,11 @@ func (a *Auditor) Flush(fType int) {
 		return
 	}
 
-	_, err := a.repository.CreateMany(context.Background(), a._entities[0:entitiesLen])
+	affected, err := a.repository.CreateMany(context.Background(), a._entities[0:entitiesLen])
 	if err != nil {
-		//log.Errorw(`Auditor didn't save events`, `error`, err, `type`, flushType(fType))
+		fmt.Errorf(`auditor didn't save events. Error: %s. Type: %s`, err, flushType(fType))
 	} else {
-		//log.Infow(`Auditor flush events`, `num`, affected, `type`, flushType(fType))
+		log.Printf(`Auditor flush events. Num: %d. Type: %s.`, affected, flushType(fType))
 	}
 
 	a._entities = a._entities[entitiesLen:]
@@ -115,13 +117,13 @@ func (a *Auditor) Stop(wg *sync.WaitGroup) {
 	a.lastFlush()
 	wg.Done()
 
-	//log.Info("---- Auditor log flushed and stopped")
+	log.Println("---- Auditor log flushed and stopped")
 }
 
 func (a *Auditor) Update(subj any) {
 	ent, ok := subj.(Valuable)
 	if !ok {
-		//log.Errorw(`Subject for Auditor is not Valuable type`, `actual_type`, fmt.Sprintf("%T", subj))
+		fmt.Errorf(`subject for Auditor is not Valuable type: Actual type: %s`, fmt.Sprintf("%T", subj))
 	}
 
 	if a.isStopped() {
@@ -134,10 +136,6 @@ func (a *Auditor) Update(subj any) {
 
 	a._entities = append(a._entities, ent)
 	a.triggerFlushMax()
-}
-
-func (a *Auditor) GetID() string {
-	return observerId
 }
 
 func (a *Auditor) triggerFlushMax() {
