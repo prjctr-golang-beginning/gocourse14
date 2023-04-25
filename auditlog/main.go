@@ -33,4 +33,6 @@ func main() {
 	a.Update(val2)
 
 	time.Sleep(time.Second * 5)
+
+	// add some comment
 }

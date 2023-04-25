@@ -31,7 +31,7 @@ git commit -m "Feature01: Add new feature"
 ```
 ### Запушити зміни до віддаленого репозиторію:
 ```shell
-git push origin feature01
+git push origin feature/feature01
 ```
 
 ### Завершити розробку фічі та змерджити її з гілкою розробки:
@@ -87,7 +87,7 @@ git pull origin develop
 `
 ### Видалити гілку, яка більше не потрібна:
 ```shell
-git branch -d feature01
+git branch -d feature/feature01
 ```
 `
 ### Запушити зміни до віддаленого репозиторію:
