@@ -29,6 +29,7 @@ git flow feature start feature01
 git add <file_name>
 git commit -m "Feature01: Add new feature"
 ```
+
 ### Запушити зміни до віддаленого репозиторію:
 ```shell
 git push origin feature/feature01
@@ -55,6 +56,7 @@ git flow release start 1.0.0
 git add <file_name>
 git commit -m "Release 1.0.0: Update version"
 ```
+
 ### Завершити підготовку релізу та змерджити його з гілкою розробки та гілкою майстра:
 ```shell
 git flow release finish 1.0.0
@@ -79,22 +81,23 @@ git flow hotfix finish hotfix01
 ### Виконати синхронізацію з віддаленими гілками:
 ```shell
 git fetch
-````
+```
+
 ### Оновити локальну копію гілок:
 ```shell
 git pull origin develop
 ```
-`
-### Видалити гілку, яка більше не потрібна:
+
+### Видалити гілку, яка більше не потрібна (якщо вона не була видалена автоматично):
 ```shell
 git branch -d feature/feature01
 ```
-`
+
 ### Запушити зміни до віддаленого репозиторію:
 ```shell
 git push
 ```
-`
+
 ### Перевірити стан гілок:
 ```shell
 git branch -a
@@ -107,29 +110,33 @@ git branch -a
 #### Перевірити зміни за допомогою автоматичних перевірок, які виконуються з кожним Pull Request
 #### Злити Pull Request з гілкою розробки
 
-### Прибрати локальну копію гілки релізу:
+### Прибрати локальну копію гілки релізу (якщо вона не була видалена автоматично):
 ```shell
 git branch -d release/1.0.0
 ```
+
 ### Оновити гілку майстра з виправленнями з гарячуфіксу:
 ```shell
 git checkout master
 git merge --no-ff hotfix/hotfix01
 ````
+
 ### Запушити зміни до віддаленого репозиторію:
 ```shell
 git push
 ```
-### Видалити гілку гарячуфіксу:
+
+### Видалити гілку гарячуфіксу (якщо вона не була видалена автоматично):
 ```shell
 git branch -d hotfix/hotfix01
 ```
-`
+
 ### Оновити гілку розробки з оновленнями з гілки майстра:
 ```shell
 git checkout develop
 git merge --no-ff master
 ````
+
 ### Запушити зміни до віддаленого репозиторію:
 ```shell
 git push
