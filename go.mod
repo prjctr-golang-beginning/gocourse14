@@ -1,3 +1,3 @@
-module github.com/maximorov/gocourse14
+module gocourse14
 
-go 1.19
+go 1.21
